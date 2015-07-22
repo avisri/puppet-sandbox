@@ -1,12 +1,21 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-domain = 'example.com'
+domain = 'avi.com'
 
 puppet_nodes = [
-  {:hostname => 'puppet',  :ip => '172.16.32.10', :box => 'precise64', :fwdhost => 8140, :fwdguest => 8140, :ram => 512},
-  {:hostname => 'client1', :ip => '172.16.32.11', :box => 'precise64'},
-  {:hostname => 'client2', :ip => '172.16.32.12', :box => 'precise64'},
+  {:hostname => 'puppet',  :ip => '172.16.32.10', :box => 'vStone/centos-7.x-puppet.3.x',
+	:fwdhost => 80, 
+	:fwdguest => 80, 
+	:fwdhost => 8140, 
+	:fwdguest => 8140, 
+	:fwdhost => 3000, 
+	:fwdguest => 3000, 
+	:ram => 512
+  },
+  {:hostname => 'client1', :ip => '172.16.32.11', :box => 'vStone/centos-7.x-puppet.3.x'},
+  {:hostname => 'client2', :ip => '172.16.32.12', :box => 'vStone/centos-7.x-puppet.3.x'},
+  {:hostname => 'kibana', :ip => '172.16.32.13', :box => 'vStone/centos-7.x-puppet.3.x'},
 ]
 
 Vagrant.configure("2") do |config|
@@ -21,12 +30,17 @@ Vagrant.configure("2") do |config|
         node_config.vm.network :forwarded_port, guest: node[:fwdguest], host: node[:fwdhost]
       end
 
-      memory = node[:ram] ? node[:ram] : 256;
+#      if node[:hostname]  == "puppet"
+#      	node_config.vm.network  "public_network", bridge: 'en1: Wi-Fi'
+#      end
+
+      memory = node[:ram] ? node[:ram] : 4096;
       node_config.vm.provider :virtualbox do |vb|
         vb.customize [
           'modifyvm', :id,
           '--name', node[:hostname],
-          '--memory', memory.to_s
+          '--memory', memory.to_s,
+          '--cpus', 2
         ]
       end
 

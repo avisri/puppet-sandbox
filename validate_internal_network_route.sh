@@ -14,4 +14,4 @@ $ netstat -nr | grep 172.16.32
 echo
 echo
 echo 'Your result ---- '
-netstat -nr | grep  172.16.32 ||  ( sudo route -nv add -net '172.16.32'  -interface vboxnet0  && etstat -nr | grep  172.16.32 ) 
+netstat -nr | grep  172.16.32 ||  ( sudo route -nv add -net '172.16.32'  -interface vboxnet0  && netstat -nr | grep  172.16.32 ) 
