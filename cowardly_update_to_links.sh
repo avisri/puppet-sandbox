@@ -16,6 +16,6 @@ do
   ((count++))
   echo "----------------[$count/${#dsts[*]}]-----------"
   echo "$dst will be linked to $src -----"
-  echo mv -v $dst $dst.orig.`date +%s`
-  echo ln -v -s $src $dst 
+  mv -v $dst $dst.orig.`date +%s`
+  ln -v -s $src $dst 
 done

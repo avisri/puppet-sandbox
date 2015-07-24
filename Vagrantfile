@@ -15,14 +15,19 @@ puppet_nodes = [
   },
   {:hostname => 'client1', :ip => '172.16.32.11', :box => 'vStone/centos-7.x-puppet.3.x'},
   {:hostname => 'client2', :ip => '172.16.32.12', :box => 'vStone/centos-7.x-puppet.3.x'},
-  {:hostname => 'kibana', :ip => '172.16.32.13', :box => 'vStone/centos-7.x-puppet.3.x'},
+  {:hostname => 'kibana', :ip => '172.16.32.13', :box => 'vStone/centos-7.x-puppet.3.x',
+	:fwdhost => 5601, 
+	:fwdguest => 80, 
+  },
 ]
 
 Vagrant.configure("2") do |config|
   puppet_nodes.each do |node|
     config.vm.define node[:hostname] do |node_config|
       node_config.vm.box = node[:box]
-      node_config.vm.box_url = 'http://files.vagrantup.com/' + node_config.vm.box + '.box'
+      #https://atlas.hashicorp.com/vStone/centos-7.x-puppet.3.x
+      #node_config.vm.box_url = 'https://atlas.hashicorp.com/' + node_config.vm.box + '.box'
+      node_config.vm.box_url = 'https://atlas.hashicorp.com/' + node_config.vm.box
       node_config.vm.hostname = node[:hostname] + '.' + domain
       node_config.vm.network :private_network, ip: node[:ip]
 
