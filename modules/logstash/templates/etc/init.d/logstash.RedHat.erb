@@ -79,6 +79,15 @@ is_true() {
     fi
 }
 
+configtest() {
+
+  nice -n ${LS_NICE} chroot --userspec $LS_USER:$LS_GROUP / sh -c "
+    cd $LS_HOME
+    exec \"$JAVA\" $ARGS --configtest
+  "
+}
+
+
 #
 # Function that starts the daemon/service
 #
@@ -147,6 +156,9 @@ case "$1" in
     echo -n "$DESC"
     status -p $PID_FILE
     exit $?
+    ;;
+  configtest)
+    configtest
     ;;
   *)
     echo "Usage: $SCRIPTNAME {start|stop|status|restart}" >&2
