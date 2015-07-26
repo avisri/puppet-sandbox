@@ -6,11 +6,12 @@
 # Global ! install some defaults
 #include rpmforge
 Package { ensure => "installed" }
-$enhancers = [ "screen", "strace", "sudo", 
+$enhancers = [ "screen", "strace", "sudo", "tree",
 		"vim-enhanced", "mlocate", "lsof" , "sharutils",
 		"git",
 		"tcpdump", "nmap", 
-#	"htop"
+#"htop",
+		"lynx",
 	     ]
 package { $enhancers: }
 
@@ -68,9 +69,11 @@ node /^.*client\d+.*$/ inherits default {
 	    'cluster' => {
 	      'name' => 'esearch',
 	      'routing.allocation.awareness.attributes' => 'rack',
-	      'index.number_of_replicas' => '0',
-	      'index.number_of_shards'   => '1',
+	      'index.number_of_replicas' => '2',
+	      'index.number_of_shards'   => '5',
 	      'network.host' => '0.0.0.0',
+	      'network.publish_host' => '0.0.0.0', # hmm need to do this as first non loop interface is host-only 
+	      'network.bind_host'    => '0.0.0.0', # hmm need to do this as first non loop interface is host-only 
 	      'marvel.agent.enabled' => false #DISABLE marvel data collection.
 	    },
 	},
@@ -87,12 +90,23 @@ node /^.*client\d+.*$/ inherits default {
   	instances  => 'esearch'
   }
 
+
+  $config_hash = {
+ 		'LS_USER' => 'root',
+ 		'START' => 'true'
+  }
+
   class { 'logstash':
 	  ensure       => 'present',
 	  manage_repo  => true,
-	  repo_version => '1.5.3',
+	  repo_version => '1.5',
 	  require      => [ Class['java'], Class['elasticsearch'] ],
- }
+	  init_defaults => $config_hash,
+  }
+
+  logstash::configfile { 'configname':
+  	content => template('logstash/final_config.erb')
+  } 
 
 
   firewall {
