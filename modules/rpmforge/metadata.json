@@ -1,0 +1,26 @@
+{
+  "author": "lboynton",
+  "version": "0.1.3",
+  "description": "Sets up the RPMForge repo on CentOS/RHEL",
+  "checksums": {
+    "CHANGELOG": "6cfb5f9b44d73047728b8a8fde8323d0",
+    "Modulefile": "8dd85ee874af6a209867f03a22e47b2e",
+    "files/RPM-GPG-KEY-rpmforge-dag": "a44f72c72b873d0f8f3021690bb3e52f",
+    "README.md": "08607d107fdf517afae6438f699e2736",
+    "manifests/init.pp": "7cc2b8a1cc30af55f3ef193d0eed11cb"
+  },
+  "name": "lboynton-rpmforge",
+  "license": "Apache License, Version 2.0",
+  "project_page": "https://github.com/lboynton/puppet-rpmforge",
+  "source": "https://github.com/lboynton/puppet-rpmforge",
+  "summary": "Sets up the RPMForge repo on CentOS/RHEL",
+  "dependencies": [
+    {
+      "version_requirement": "0.0.x",
+      "name": "stahnma/epel"
+    }
+  ],
+  "types": [
+
+  ]
+}

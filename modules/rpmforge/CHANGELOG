@@ -1,0 +1,10 @@
+2013-10-25 Lee Boynton <lee@lboynton.com> 0.1.3
+Use semantic versioning to specify dependency version
+2013-10-15 Aaron Blew <aaron.blew@iovation.com> 0.1.2
+Added RPMForge testing repo
+2013-09-10 Lee Boynton <lee@lboynton.com> 0.1.1
+Added option to disable repo
+2013-06-11 Lee Boynton <lee@lboynton.com> 0.1.0
+Testing param was renamed to extras to better reflect usage
+2013-01-28 Lee Boynton <lee@lboynton.com> 0.0.1
+Initial release
