@@ -4,12 +4,13 @@
 
 
 # Global ! install some defaults
-include rpmforge
+#include rpmforge
 Package { ensure => "installed" }
 $enhancers = [ "screen", "strace", "sudo", 
 		"vim-enhanced", "mlocate", "lsof" , "sharutils",
-		"tcpdump",
-		"htop"
+		"git",
+		"tcpdump", "nmap", 
+#	"htop"
 	     ]
 package { $enhancers: }
 

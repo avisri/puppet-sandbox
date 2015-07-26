@@ -5,13 +5,13 @@ domain = 'avi.com'
 
 puppet_nodes = [
   {:hostname => 'puppet',  :ip => '172.16.32.10', :box => 'vStone/centos-7.x-puppet.3.x',
-	:fwdhost => 80, 
+	:fwdhost => 8080, 
 	:fwdguest => 80, 
 	:fwdhost => 8140, 
 	:fwdguest => 8140, 
 	:fwdhost => 3000, 
 	:fwdguest => 3000, 
-	:ram => 512
+	:ram => 4096
   },
   {:hostname => 'client1', :ip => '172.16.32.11', :box => 'vStone/centos-7.x-puppet.3.x'},
   {:hostname => 'client2', :ip => '172.16.32.12', :box => 'vStone/centos-7.x-puppet.3.x'},
