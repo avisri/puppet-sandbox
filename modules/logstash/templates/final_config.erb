@@ -44,10 +44,6 @@ filter {
       pattern => "(^\d+\serror)|(^.+Exception: .+)|(^\s+at .+)|(^\s+... \d+ more)|(^\s*Caused by:.+)"
       what => "previous"
     }
-    grep {
-      tags => [ "multiline" ]
-      add_field => [ "stacktrace", "true" ]
-    }
     date {
       match => [ "timestamp", "yyyy-MM-dd HH:mm:ss,SSS Z", "MMM dd, yyyy HH:mm:ss a" ]
     }

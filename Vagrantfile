@@ -13,11 +13,16 @@ puppet_nodes = [
 	:fwdguest => 3000, 
 	:ram => 4096
   },
-  {:hostname => 'client1', :ip => '172.16.32.11', :box => 'vStone/centos-7.x-puppet.3.x'},
-  {:hostname => 'client2', :ip => '172.16.32.12', :box => 'vStone/centos-7.x-puppet.3.x'},
+  {:hostname => 'client1', :ip => '172.16.32.11', :box => 'vStone/centos-7.x-puppet.3.x',
+	:ram => 2048,
+  },
+  {:hostname => 'client2', :ip => '172.16.32.12', :box => 'vStone/centos-7.x-puppet.3.x',
+    :ram => 2048,
+  },
   {:hostname => 'kibana', :ip => '172.16.32.13', :box => 'vStone/centos-7.x-puppet.3.x',
 	:fwdhost => 5601, 
-	:fwdguest => 80, 
+	:fwdguest => 5601, 
+    :ram => 2048,
   },
 ]
 

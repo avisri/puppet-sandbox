@@ -5,12 +5,14 @@
 
 # Global ! install some defaults
 #include rpmforge
+include epel
+include repoforge
 Package { ensure => "installed" }
 $enhancers = [ "screen", "strace", "sudo", "tree",
 		"vim-enhanced", "mlocate", "lsof" , "sharutils",
-		"git",
-		"tcpdump", "nmap", 
-#"htop",
+		"git","patch",
+		"tcpdump", "nmap", "iftop",
+		"htop",
 		"lynx",
 	     ]
 package { $enhancers: }
@@ -55,6 +57,16 @@ node 'puppet' { }
 ##### CLIENTS
 node /^.*client\d+.*$/ inherits default {
   notice("Elastic search for ${hostname}")
+  #### collectd
+  include collectd
+  class { 'collectd::plugin::network':
+	  servers       => { 'puppet' => { 'port'=> '25826',
+					    'interface'     => 'eth0',
+					    'securitylevel' => '',
+	    				 },
+	  },
+  }
+  #### Elastic search 
 
   class {'elasticsearch': 
 	datadir      => '/var/lib/elasticsearch-data',
@@ -120,6 +132,7 @@ node /^.*client\d+.*$/ inherits default {
 
 
 node 'kibana' {
+  include collectd
   class { 'java':
   	distribution => 'jdk',
   }
